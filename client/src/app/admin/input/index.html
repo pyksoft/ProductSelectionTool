@@ -13,7 +13,7 @@
         <div class="list-row__secondary pcr-buttons">
           <lx-button lx-type="icon" lx-color="green"><i class="mdi mdi-pencil"></i></lx-button>
           <lx-button lx-type="icon" lx-color="blue"><i class="mdi mdi-plus"></i></lx-button>
-          <lx-button lx-type="icon" lx-color="red"><i class="mdi mdi-close"></i></lx-button>
+          <lx-button lx-type="icon" lx-color="red" ng-click="input.openDialog('dialog-delete-confirm', 'quest', 'Question - ' + quest.title, quest.id)"><i class="mdi mdi-close"></i></lx-button>
         </div>
       </li>  
       <div ng-show="input.expanded_quest_id == quest.id" ng-repeat-end>
@@ -54,6 +54,25 @@
   
   <lx-dialog-footer>
     <lx-button lx-color="black" lx-type="flat" lx-dialog-close>Cancel</lx-button>
-    <lx-button lx-type="flat" ng-click="input.modals.quest_new.confirm()">Confirm</lx-button>
+    <lx-button lx-type="flat" ng-click="input.modals.quest_new.confirm('dialog-new-quest')">Confirm</lx-button>
+  </lx-dialog-footer>
+</lx-dialog>
+
+<lx-dialog id="dialog-delete-confirm">
+  <lx-dialog-header>
+    <div class="toolbar bgc-primary pl++">
+      <span class="toolbar__label tc-white fs-title">
+        Are you sure the delete the following?
+      </span>
+    </div>
+  </lx-dialog-header>
+  
+  <lx-dialog-content class="p++">
+    <span class="fs-subhead">{{input.modals.delete_confirm.subject}}</span>
+  </lx-dialog-content>
+  
+  <lx-dialog-footer>
+    <lx-button lx-color="black" lx-type="flat" lx-dialog-close>Cancel</lx-button>
+    <lx-button lx-type="flat" ng-click="input.modals.delete_confirm.confirm('dialog-delete-confirm')">Confirm</lx-button>
   </lx-dialog-footer>
 </lx-dialog>

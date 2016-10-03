@@ -45,6 +45,6 @@ class Api::QuestionsController < Api::ApiController
   end
 
   def qs_params
-    params.require(:question).permit(:name)
+    params.require(:question).permit(:title)
   end
 end
