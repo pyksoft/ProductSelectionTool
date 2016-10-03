@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+quest = Question.create(title: 'Sample Question')
+Choice.create(title: 'Choice 1', question: quest)
+Choice.create(title: 'Choice 2', question: quest)
+Choice.create(title: 'Choice 3', question: quest)

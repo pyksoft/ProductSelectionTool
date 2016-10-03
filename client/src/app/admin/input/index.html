@@ -1,0 +1,59 @@
+<div class="card">
+  <div class="card__content">
+    <ul class="list mt++">
+      <li class="list-row list-row--has-separator item-quest" ng-repeat-start="quest in input.arr_quests">
+        <div class="list-row__primary">
+          <lx-icon lx-id="view-list" lx-size="s" lx-color="grey" lx-type="flat"></lx-icon>
+        </div>
+        <div class="list-row__content">
+          <span class="pcr-label" ng-click="input.expandQuest(quest)">
+            {{quest.title}}
+          </span>
+        </div>
+        <div class="list-row__secondary pcr-buttons">
+          <lx-button lx-type="icon" lx-color="green"><i class="mdi mdi-pencil"></i></lx-button>
+          <lx-button lx-type="icon" lx-color="blue"><i class="mdi mdi-plus"></i></lx-button>
+          <lx-button lx-type="icon" lx-color="red"><i class="mdi mdi-close"></i></lx-button>
+        </div>
+      </li>  
+      <div ng-show="input.expanded_quest_id == quest.id" ng-repeat-end>
+        <ul class="list mt+ ml++ mr++">
+          <li class="list-row item-choice" ng-repeat="choice in quest.choices">
+            <div class="list-row__content">
+              <span>{{choice.title}}</span>
+            </div>
+            <div class="list-row__secondary pcr-buttons">
+              <lx-button lx-type="icon" lx-size="s" lx-color="green"><i class="mdi mdi-pencil"></i></lx-button>
+              <lx-button lx-type="icon" lx-size="s" lx-color="blue"><i class="mdi mdi-link-variant"></i></lx-button>
+              <lx-button lx-type="icon" lx-size="s" lx-color="red"><i class="mdi mdi-close"></i></lx-button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </ul>
+  </div>
+  <div class="card__actions">
+    <lx-button lx-color="blue" lx-type="raised" ng-click="input.openDialog('dialog-new-quest')">Add Question</lx-button>
+  </div>
+</div>
+
+<lx-dialog id="dialog-new-quest">
+  <lx-dialog-header>
+    <div class="toolbar bgc-primary pl++">
+      <span class="toolbar__label tc-white fs-title">
+        Add a Question
+      </span>
+    </div>
+  </lx-dialog-header>
+  
+  <lx-dialog-content class="p++">
+    <lx-text-field lx-label="Title">
+      <input type="text" ng-model="input.modals.quest_new.title">
+    </lx-text-field>
+  </lx-dialog-content>
+  
+  <lx-dialog-footer>
+    <lx-button lx-color="black" lx-type="flat" lx-dialog-close>Cancel</lx-button>
+    <lx-button lx-type="flat" ng-click="input.modals.quest_new.confirm()">Confirm</lx-button>
+  </lx-dialog-footer>
+</lx-dialog>
