@@ -1,6 +1,6 @@
 class Api::ChoicesController < Api::ApiController
-  before_action :check_question_presense, only: [:create]
-  before_action :check_presense, only: [:update, :destroy]
+  before_action :check_question_presence, only: [:create]
+  before_action :check_presence, only: [:update, :destroy]
 
   def index
     render nothing: true

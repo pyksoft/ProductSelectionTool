@@ -3,3 +3,7 @@ angular.module 'productSelector'
     return $resource '/api/questions/:quest_id', {quest_id: '@id'},
       update:
         method: 'PUT'
+  .factory 'ChoiceConnector', ($resource) ->
+    return $resource '/api/choices/:choice_id', {choice_id: '@id'},
+      update:
+        method: 'PUT'
