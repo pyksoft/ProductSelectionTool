@@ -1,0 +1,12 @@
+<div>
+  <lx-progress lx-type="linear" lx-color="white" ng-if="main.loading"></lx-progress>
+  <div class="p++">
+    <span class="fs-subhead question-title"><b>{{main.currentQuest.title}}</b></span>
+    <lx-radio-group class="mt+">
+      <lx-radio-button class="choice-item" name="choice" lx-color="white" ng-repeat="choice in main.currentQuest.choices track by $index" value="{{choice.id}}" ng-model="main.selectedChoice">{{choice.title}}</lx-radio-button>
+    </lx-radio-group>
+    <div class="mt++">
+      <lx-button class="button-next" lx-color="blue-grey" lx-type="raised" ng-disabled="main.selectedChoice==null" ng-click="main.proceedQuest()">Next</lx-button>
+    </div>
+  </div>
+</div>

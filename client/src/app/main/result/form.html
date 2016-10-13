@@ -1,0 +1,34 @@
+<lx-progress lx-type="linear" lx-color="white" ng-if="vm.loading || vm.submitting"></lx-progress>
+<div class="p++" ng-if="!vm.loading">
+  <div class="card mb++">
+    <div class="p+">
+          <span class="fs-subhead tc-black-2 display-block">Please consider</span>
+          <strong class="fs-headline display-block">{{vm.product.title}}</strong>     
+          <div class="paragraph fs-body-1 mt+">
+              <p>
+                  Product Description
+              </p>
+          </div>
+      </div>
+
+      <div class="card__actions">
+          <lx-button lx-color="blue" lx-type="raised" ng-click="vm.visitPage()">Visit Product Page</lx-button>
+      </div>
+  </div>
+
+  <form ng-submit="vm.submit()">
+    <span class="fs-subhead tc-black-2" class="mt+++">
+      Check all that apply :
+    </span>
+    <lx-checkbox ng-model="vm.info.email_me.additional" ng-false-value="false" ng-true-value="true" lx-color="white"><span class="tc-white ml">Please email me additional information</span></lx-checkbox>
+    <lx-checkbox ng-model="vm.info.email_me.price" ng-false-value="false" ng-true-value="true" lx-color="white" class="mt"><span class="tc-white ml">Please email me a price quote</span></lx-checkbox>
+    <lx-checkbox ng-model="vm.info.email_me.sample" ng-false-value="false" ng-true-value="true" lx-color="white" class="mt"><span class="tc-white ml">I would like to receive a sample</span></lx-checkbox>
+
+    <lx-text-field lx-label="Email address" lx-fixed-label="true" lx-theme="dark" lx-icon="email">
+          <input type="email" ng-model="vm.info.email" required>
+    </lx-text-field>
+    <div class="mt++">
+      <lx-button class="button-submit" lx-color="blue-grey" lx-type="raised" ng-disabled="vm.disable_submit">Submit</lx-button>
+    </div>
+  </form>
+</div>

@@ -7,10 +7,11 @@
         </div>
         <div class="list-row__content">
           <span class="pcr-label" ng-click="input.expandQuest(quest)">
-            {{quest.title}}
+            {{quest.title}} <b>{{quest.is_root?"starting question":""}}</b>
           </span>
         </div>
         <div class="list-row__secondary pcr-buttons">
+          <lx-button lx-type="icon" lx-color="orange" ng-click="input.openDialog('dialog-root-confirm', quest)"><i class="mdi mdi-play-circle"></i></lx-button>
           <lx-button lx-type="icon" lx-color="green" ng-click="input.openDialog('dialog-title-change', 'Question', quest)"><i class="mdi mdi-pencil"></i></lx-button>
           <lx-button lx-type="icon" lx-color="blue" ng-click="input.openDialog('dialog-new-choice', quest)"><i class="mdi mdi-plus"></i></lx-button>
           <lx-button lx-type="icon" lx-color="red" ng-click="input.openDialog('dialog-delete-confirm', 'quest', 'Question - ' + quest.title, quest.id)"><i class="mdi mdi-close"></i></lx-button>
@@ -24,7 +25,7 @@
             </div>
             <div class="list-row__secondary pcr-buttons">
               <lx-button lx-type="icon" lx-size="s" lx-color="green" ng-click="input.openDialog('dialog-title-change', 'Choice', choice, quest)"><i class="mdi mdi-pencil"></i></lx-button>
-              <lx-button lx-type="icon" lx-size="s" lx-color="blue"><i class="mdi mdi-link-variant"></i></lx-button>
+              <lx-button lx-type="icon" lx-size="s" lx-color="blue" ng-click="input.openDialog('dialog-select-lead', choice, quest.id)"><i class="mdi mdi-link-variant"></i></lx-button>
               <lx-button lx-type="icon" lx-size="s" lx-color="red" ng-click="input.openDialog('dialog-delete-confirm', 'choice', 'Choice - ' + choice.title, choice.id, quest)"><i class="mdi mdi-close"></i></lx-button>
             </div>
           </li>
@@ -118,5 +119,79 @@
   <lx-dialog-footer>
     <lx-button lx-color="black" lx-type="flat" lx-dialog-close>Cancel</lx-button>
     <lx-button lx-type="flat" ng-click="input.modals.delete_confirm.confirm('dialog-delete-confirm')">Confirm</lx-button>
+  </lx-dialog-footer>
+</lx-dialog>
+
+<lx-dialog id="dialog-root-confirm">
+  <lx-dialog-header>
+    <div class="toolbar bgc-primary pl++">
+      <span class="toolbar__label tc-white fs-title">
+        Are you sure to change the starting question?
+      </span>
+    </div>
+  </lx-dialog-header>
+
+  <lx-dialog-content class="p++">
+    <span class="fs-subhead">Question : <b>{{input.modals.root_confirm.subject.title}}</b></span>
+  </lx-dialog-content>
+
+  <lx-dialog-footer>
+    <lx-button lx-color="black" lx-type="flat" lx-dialog-close>Cancel</lx-button>
+    <lx-button lx-type="flat" ng-click="input.modals.root_confirm.confirm('dialog-root-confirm')">Confirm</lx-button>
+  </lx-dialog-footer>
+</lx-dialog>
+
+<lx-dialog id="dialog-select-lead">
+  <lx-dialog-header>
+    <div class="toolbar bgc-primary pl++">
+      <span class="toolbar__label tc-white fs-title">
+        Set the question flow
+      </span>
+    </div>
+  </lx-dialog-header>
+
+  <lx-dialog-content class="p++">
+    <span class="fs-subhead">This choice (<b>{{input.modals.lead.subject.title}}</b>) leads to</span>
+    <lx-radio-group class="mt+">
+        <lx-radio-button name="lead_type" value="quest" ng-model="input.modals.lead.next">Another Question</lx-radio-button>
+        <lx-radio-button name="lead_type" value="result" ng-model="input.modals.lead.next">Result (Product)</lx-radio-button>
+        <lx-radio-button name="lead_type" value="deadend" ng-model="input.modals.lead.next">Dead-end (No matches)</lx-radio-button>
+    </lx-radio-group>
+    <lx-select ng-model="input.modals.lead.quest"
+               ng-show="input.modals.lead.next=='quest'"
+               lx-allow-clear="true"
+               lx-choices="input.modals.lead.choice_quests"
+               lx-display-filter="true"
+               lx-fixed-label="true"
+               lx-label="Question">
+      <lx-select-selected>
+          {{ $selected.title }}
+      </lx-select-selected>
+
+      <lx-select-choices>
+          {{ $choice.title }}
+      </lx-select-choices>
+    </lx-select>
+
+    <lx-select ng-model="input.modals.lead.result"
+               ng-show="input.modals.lead.next=='result'"
+               lx-allow-clear="true"
+               lx-choices="input.modals.lead.choice_results"
+               lx-display-filter="true"
+               lx-fixed-label="true"
+               lx-label="Result">
+      <lx-select-selected>
+          {{ $selected.title }}
+      </lx-select-selected>
+
+      <lx-select-choices>
+          {{ $choice.title }}
+      </lx-select-choices>
+    </lx-select>
+  </lx-dialog-content>
+
+  <lx-dialog-footer>
+    <lx-button lx-color="black" lx-type="flat" lx-dialog-close>Cancel</lx-button>
+    <lx-button lx-type="flat" ng-click="input.modals.lead.confirm('dialog-select-lead')">Confirm</lx-button>
   </lx-dialog-footer>
 </lx-dialog>

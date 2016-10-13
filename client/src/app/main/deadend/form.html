@@ -1,0 +1,17 @@
+<form ng-submit="submit()">
+  <lx-progress lx-type="linear" lx-color="white" ng-if="loading"></lx-progress>
+  <div class="p++">
+    <span class="fs-subhead text-help">
+      We want to help. Please provide brief description of your application requirements and we will contact you as soon as possible with product recommendations.
+    </span>
+    <lx-text-field lx-label="Description" lx-theme="dark" class="mt+">
+      <textarea ng-model="info.description" required></textarea>
+    </lx-text-field>
+    <lx-text-field lx-label="Email" lx-theme="dark">
+      <input type="email" ng-model="info.email" required>
+    </lx-text-field>
+    <div class="mt++">
+      <lx-button class="button-submit" lx-color="blue-grey" lx-type="raised" type="submit" ng-disabled="disable_submit">Submit</lx-button>
+    </div>    
+  </div>
+</form>

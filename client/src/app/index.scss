@@ -30,6 +30,16 @@ $icon-font-path: "../../bootstrap-sass/assets/fonts/bootstrap/";
 .clearfix {
   clear: both;
 }
+
+.dropdown-menu.dropdown-menu--is-open {
+  display: block !important;
+}
+
+.absolute-center {
+  left: 50%;
+  position: relative;
+  transform: translateX(-50%)
+}
 /**
  *  Do not remove the comments below. It's the markers used by gulp-inject to inject
  *  all your sass files automatically

@@ -33,6 +33,9 @@ gem 'mongoid', git: 'https://github.com/mongodb/mongoid.git'
 gem 'active_model_serializers'
 # Use of ENV file for global constants
 gem 'dotenv-rails'
+# HTTP Client
+gem 'httparty'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -1,0 +1,91 @@
+<div class="card">
+  <div class="card__content">
+    <ul class="list mt++">
+      <li class="list-row list-row--has-separator" ng-repeat="result in vm.arr_results">
+        <div class="list-row__primary">
+          <lx-icon lx-id="gift" lx-size="s" lx-color="grey" lx-type="flat"></lx-icon>
+        </div>
+        <div class="list-row__content">
+          <span class="pcr-label">
+            <b>{{result.title}}</b> &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://{{result.url}}" target="_blank">{{result.url}}</a>
+          </span>
+        </div>
+        <div class="list-row__secondary pcr-buttons">
+          <lx-button lx-type="icon" lx-color="green" ng-click="vm.openDialog('dialog-edit', result)"><i class="mdi mdi-pencil"></i></lx-button>
+          <lx-button lx-type="icon" lx-color="red" ng-click="vm.openDialog('dialog-delete-confirm', result)"><i class="mdi mdi-close"></i></lx-button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="card__actions">
+    <lx-button lx-color="blue" lx-type="raised" ng-click="vm.openDialog('dialog-new-result')">Add Result</lx-button>
+  </div>
+</div>
+
+<!-- Modals -->
+<lx-dialog id="dialog-new-result">
+  <lx-dialog-header>
+    <div class="toolbar bgc-primary pl++">
+      <span class="toolbar__label tc-white fs-title">
+        Add a Result (Product)
+      </span>
+    </div>
+  </lx-dialog-header>
+  
+  <lx-dialog-content class="p++">
+    <lx-text-field lx-label="Title">
+      <input type="text" ng-model="vm.modals.result_new.title">
+    </lx-text-field>
+    <lx-text-field lx-label="URL">
+      <input type="text" ng-model="vm.modals.result_new.url">
+    </lx-text-field>
+  </lx-dialog-content>
+  
+  <lx-dialog-footer>
+    <lx-button lx-color="black" lx-type="flat" lx-dialog-close>Cancel</lx-button>
+    <lx-button lx-type="flat" ng-click="vm.modals.result_new.confirm('dialog-new-result')">Confirm</lx-button>
+  </lx-dialog-footer>
+</lx-dialog>
+
+<lx-dialog id="dialog-edit">
+  <lx-dialog-header>
+    <div class="toolbar bgc-primary pl++">
+      <span class="toolbar__label tc-white fs-title">
+        Edit {{vm.modals.edit.subject}}
+      </span>
+    </div>
+  </lx-dialog-header>
+  
+  <lx-dialog-content class="p++">
+    <lx-text-field lx-label="Title">
+      <input type="text" ng-model="vm.modals.edit.title">
+    </lx-text-field>
+    <lx-text-field lx-label="Title">
+      <input type="text" ng-model="vm.modals.edit.url">
+    </lx-text-field>
+  </lx-dialog-content>
+  
+  <lx-dialog-footer>
+    <lx-button lx-color="black" lx-type="flat" lx-dialog-close>Cancel</lx-button>
+    <lx-button lx-type="flat" ng-click="vm.modals.edit.confirm('dialog-edit')">Confirm</lx-button>
+  </lx-dialog-footer>
+</lx-dialog>
+
+<lx-dialog id="dialog-delete-confirm">
+  <lx-dialog-header>
+    <div class="toolbar bgc-primary pl++">
+      <span class="toolbar__label tc-white fs-title">
+        Delete Result (Product)
+      </span>
+    </div>
+  </lx-dialog-header>
+  
+  <lx-dialog-content class="p++">
+    <span class="fs-subhead">Are you sure to delete <b>{{vm.modals.delete_confirm.subject.title}}</b>?</span>
+  </lx-dialog-content>
+  
+  <lx-dialog-footer>
+    <lx-button lx-color="black" lx-type="flat" lx-dialog-close>Cancel</lx-button>
+    <lx-button lx-type="flat" ng-click="vm.modals.delete_confirm.confirm('dialog-delete-confirm')">Confirm</lx-button>
+  </lx-dialog-footer>
+</lx-dialog>

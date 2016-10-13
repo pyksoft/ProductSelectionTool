@@ -58,6 +58,6 @@ class Api::ChoicesController < Api::ApiController
   end
 
   def choice_params
-    params.require(:choice).permit(:title)
+    params.require(:choice).permit(:title, :lead_id, :result_id)
   end
 end

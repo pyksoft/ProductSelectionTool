@@ -24,6 +24,11 @@ class Api::QuestionsController < Api::ApiController
 
   def update
     @question = subject
+
+    unless qs_params[:is_root].nil?
+      Question.clear_root
+    end
+
     if @question.update(qs_params)
       render json: @question
     else
@@ -45,6 +50,6 @@ class Api::QuestionsController < Api::ApiController
   end
 
   def qs_params
-    params.require(:question).permit(:title)
+    params.require(:question).permit(:title, :is_root)
   end
 end
