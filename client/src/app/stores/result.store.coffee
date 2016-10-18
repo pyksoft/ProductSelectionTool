@@ -1,5 +1,5 @@
 angular.module 'productSelector'
-  .service 'ResultStore', (ResultConnector, ChoiceConnector) ->
+  .service 'ResultStore', (ResultConnector, ItemConnector, ChoiceConnector) ->
     srv = this
     @arr_results = []
     @synched = false
@@ -39,6 +39,14 @@ angular.module 'productSelector'
         callback()
         return
       return
+
+    @add_item = (result_id, item, callback) ->
+      new ItemConnector(item: item, result_id: result_id).$save (item) ->
+        result = srv.getResult result_id
+        result.items.push item
+        callback()
+        return
+      return
     
     @update = (id, title, url, callback) ->
       new ResultConnector(result: {title: title, url: url}).$update {result_id: id}, () ->
@@ -56,4 +64,26 @@ angular.module 'productSelector'
         return
       return
 
+    @delete_item = (result_id, id, callback) ->
+      ItemConnector.remove {item_id: id}, () ->
+        result = srv.getResult result_id
+        for item, i in result.items
+          if item.id == id
+            result.items.splice i, 1
+            break
+        callback()
+      return
+
+    @update_item = (result_id, item, callback) ->
+      new ItemConnector(item: item).$update {item_id: item.id}, () ->
+        result = srv.getResult result_id
+        for _item, i in result.items
+          if _item.id == item.id
+            result.items[i].item_no = item.item_no
+            result.items[i].description = item.description
+            result.items[i].reactions = item.reactions
+            break
+        callback()
+        return
+      return
     return

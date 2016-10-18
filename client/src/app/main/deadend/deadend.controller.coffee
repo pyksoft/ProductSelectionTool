@@ -3,6 +3,8 @@ angular.module 'productSelector'
     'ngInject'
     $scope.loading = false
     $scope.disable_submit = false
+    $scope.submitted = false
+
     $scope.info =
       description: ''
       email: ''
@@ -14,7 +16,7 @@ angular.module 'productSelector'
         console.log "Successfully sent an email"
         $scope.loading = false
         $scope.disable_submit = false
-        $state.go('conclude')
+        $scope.submitted = true
         return
       return
 

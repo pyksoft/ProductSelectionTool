@@ -5,18 +5,23 @@
           <span class="fs-subhead tc-black-2 display-block">Please consider</span>
           <strong class="fs-headline display-block">{{vm.product.title}}</strong>     
           <div class="paragraph fs-body-1 mt+">
-              <p>
-                  Product Description
-              </p>
+            <table>
+              <tr>
+                <th>Item No.</th>
+                <th>Description</th>
+                <th>Reactions</th>
+              </tr>
+              <tr ng-repeat="item in vm.product.items track by item.id">
+                <td>{{item.item_no}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.reactions}}</td>
+              </tr>
+            </table>
           </div>
-      </div>
-
-      <div class="card__actions">
-          <lx-button lx-color="blue" lx-type="raised" ng-click="vm.visitPage()">Visit Product Page</lx-button>
       </div>
   </div>
 
-  <form ng-submit="vm.submit()">
+  <form ng-submit="vm.submit()" ng-if="!vm.submitted">
     <span class="fs-subhead tc-black-2" class="mt+++">
       Check all that apply :
     </span>
@@ -31,4 +36,7 @@
       <lx-button class="button-submit" lx-color="blue-grey" lx-type="raised" ng-disabled="vm.disable_submit">Submit</lx-button>
     </div>
   </form>
+  <div class="main-thanks" ng-controller="ThankController as vm" ng-if="vm.submitted" ng-include="'app/main/thanks/index.html'">
+  </div>
+  <lx-button class="button-submit mt+" lx-color="blue" lx-type="raised" ng-click="vm.visitPage()">Visit Product Page</lx-button>
 </div>

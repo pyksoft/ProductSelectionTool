@@ -31,7 +31,7 @@ module SendGrid
         "subject" => "Request from a prospect",
         "text" => "----------",
         "from" => email,
-        "fromname" => "PCR Tag Selector",
+        "fromname" => "PCR Taq Selector",
         "x-smtpapi" => nil
       }
 

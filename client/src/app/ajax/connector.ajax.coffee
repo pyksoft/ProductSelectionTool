@@ -11,6 +11,10 @@ angular.module 'productSelector'
     return $resource '/api/results/:result_id', {result_id: '@id'},
       update:
         method: 'PUT'
+  .factory 'ItemConnector', ($resource) ->
+    return $resource '/api/items/:item_id', {item_id: '@id'},
+      update:
+        method: 'PUT'
   .factory 'RequestConnector', ($resource) ->
     return {
       recommend: $resource '/api/requests/recommend'

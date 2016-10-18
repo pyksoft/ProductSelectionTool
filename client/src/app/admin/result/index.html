@@ -1,20 +1,36 @@
 <div class="card">
   <div class="card__content">
     <ul class="list mt++">
-      <li class="list-row list-row--has-separator" ng-repeat="result in vm.arr_results">
+      <li class="list-row list-row--has-separator" ng-repeat-start="result in vm.arr_results">
         <div class="list-row__primary">
           <lx-icon lx-id="gift" lx-size="s" lx-color="grey" lx-type="flat"></lx-icon>
         </div>
         <div class="list-row__content">
-          <span class="pcr-label">
+          <span class="pcr-label" ng-click="vm.expandResult(result)">
             <b>{{result.title}}</b> &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://{{result.url}}" target="_blank">{{result.url}}</a>
           </span>
         </div>
         <div class="list-row__secondary pcr-buttons">
           <lx-button lx-type="icon" lx-color="green" ng-click="vm.openDialog('dialog-edit', result)"><i class="mdi mdi-pencil"></i></lx-button>
+          <lx-button lx-type="icon" lx-color="blue" ng-click="vm.openDialog('dialog-new-item', result)"><i class="mdi mdi-plus"></i></lx-button>
           <lx-button lx-type="icon" lx-color="red" ng-click="vm.openDialog('dialog-delete-confirm', result)"><i class="mdi mdi-close"></i></lx-button>
         </div>
       </li>
+      <div ng-show="vm.expanded_result_id == result.id" ng-repeat-end>
+        <ul class="list mt+ ml++ mr++">
+          <li class="list-row item-choice" ng-repeat="item in result.items">
+            <div class="list-row__content">
+              <span>
+                {{item.item_no}}. <b>{{item.description}}</b> &nbsp;&nbsp;&nbsp;({{item.reactions}})
+              </span>
+            </div>
+            <div class="list-row__secondary pcr-buttons">
+              <lx-button lx-type="icon" lx-size="s" lx-color="green" ng-click="vm.openDialog('dialog-edit-item', item, result.id)"><i class="mdi mdi-pencil"></i></lx-button>
+              <lx-button lx-type="icon" lx-size="s" lx-color="red" ng-click="vm.openDialog('dialog-delete-item', item, result.id)"><i class="mdi mdi-close"></i></lx-button>
+            </div>
+          </li>
+        </ul>
+      </div>
     </ul>
   </div>
   <div class="card__actions">
@@ -44,6 +60,57 @@
   <lx-dialog-footer>
     <lx-button lx-color="black" lx-type="flat" lx-dialog-close>Cancel</lx-button>
     <lx-button lx-type="flat" ng-click="vm.modals.result_new.confirm('dialog-new-result')">Confirm</lx-button>
+  </lx-dialog-footer>
+</lx-dialog>
+
+<lx-dialog id="dialog-new-item">
+  <lx-dialog-header>
+    <div class="toolbar bgc-primary pl++">
+      <span class="toolbar__label tc-white fs-title">
+        Add an Item
+      </span>
+    </div>
+  </lx-dialog-header>
+  <lx-dialog-content class="p++">
+    <lx-text-field lx-label="Item No.">
+      <input type="text" ng-model="vm.modals.item_new.item_no" required>
+    </lx-text-field>
+    <lx-text-field lx-label="Description">
+      <input type="text" ng-model="vm.modals.item_new.description" required>
+    </lx-text-field>
+    <lx-text-field lx-label="Reactions">
+      <input type="number" ng-model="vm.modals.item_new.reactions" required>
+    </lx-text-field>
+  </lx-dialog-content>
+  <lx-dialog-footer>
+    <lx-button lx-color="black" lx-type="flat" lx-dialog-close>Cancel</lx-button>
+    <lx-button lx-type="flat" ng-click="vm.modals.item_new.confirm('dialog-new-item')">Confirm</lx-button>
+  </lx-dialog-footer>
+
+</lx-dialog>
+
+<lx-dialog id="dialog-edit-item">
+  <lx-dialog-header>
+    <div class="toolbar bgc-primary pl++">
+      <span class="toolbar__label tc-white fs-title">
+        Edit Item
+      </span>
+    </div>
+  </lx-dialog-header>
+  <lx-dialog-content class="p++">
+    <lx-text-field lx-label="Item No.">
+      <input type="text" ng-model="vm.modals.item_edit.item.item_no" required>
+    </lx-text-field>
+    <lx-text-field lx-label="Description">
+      <input type="text" ng-model="vm.modals.item_edit.item.description" required>
+    </lx-text-field>
+    <lx-text-field lx-label="Reactions">
+      <input type="number" ng-model="vm.modals.item_edit.item.reactions" required>
+    </lx-text-field>
+  </lx-dialog-content>
+  <lx-dialog-footer>
+    <lx-button lx-color="black" lx-type="flat" lx-dialog-close>Cancel</lx-button>
+    <lx-button lx-type="flat" ng-click="vm.modals.item_edit.confirm('dialog-edit-item')">Confirm</lx-button>
   </lx-dialog-footer>
 </lx-dialog>
 
@@ -87,5 +154,24 @@
   <lx-dialog-footer>
     <lx-button lx-color="black" lx-type="flat" lx-dialog-close>Cancel</lx-button>
     <lx-button lx-type="flat" ng-click="vm.modals.delete_confirm.confirm('dialog-delete-confirm')">Confirm</lx-button>
+  </lx-dialog-footer>
+</lx-dialog>
+
+<lx-dialog id="dialog-delete-item">
+  <lx-dialog-header>
+    <div class="toolbar bgc-primary pl++">
+      <span class="toolbar__label tc-white fs-title">
+        Delete Item
+      </span>
+    </div>
+  </lx-dialog-header>
+  
+  <lx-dialog-content class="p++">
+    <span class="fs-subhead">Are you sure to delete <b>{{vm.modals.delete_item.item.item_no}}</b>?</span>
+  </lx-dialog-content>
+  
+  <lx-dialog-footer>
+    <lx-button lx-color="black" lx-type="flat" lx-dialog-close>Cancel</lx-button>
+    <lx-button lx-type="flat" ng-click="vm.modals.delete_item.confirm('dialog-delete-item')">Confirm</lx-button>
   </lx-dialog-footer>
 </lx-dialog>

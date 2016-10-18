@@ -16,11 +16,6 @@ angular.module 'productSelector'
         templateUrl: 'app/admin/index.html'
         controller: 'AdminController'
         controllerAs: 'main'
-      .state 'conclude',
-        url: '/thank-you'
-        templateUrl: 'app/main/thanks/index.html'
-        controller: 'ThankController'
-        controllerAs: 'vm'
       .state 'home',
         url: '/:quest_id'
         templateUrl: 'app/main/main.html'

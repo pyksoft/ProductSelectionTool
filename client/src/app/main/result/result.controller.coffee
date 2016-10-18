@@ -4,6 +4,7 @@ angular.module 'productSelector'
     vm = this
     vm.loading = true
     vm.submitting = false
+    vm.submitted = false
 
     vm.info =
       product: ''
@@ -38,7 +39,7 @@ angular.module 'productSelector'
         console.log "Successfully sent an email"
         vm.submitting = false
         vm.disable_submit = false
-        $state.go('conclude')
+        vm.submitted = true
         return
       return
 

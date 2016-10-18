@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root :to => "api#index"
 
   namespace 'api' do
-    resources :questions, :choices, :results
+    resources :questions, :choices, :results, :items
     post '/requests/recommend', to: 'requests#recommend'
     post '/requests/inquire', to: 'requests#inquire'
   end
