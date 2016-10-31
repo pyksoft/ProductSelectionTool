@@ -26,7 +26,7 @@ function browserSyncInit(baseDir, browser) {
     baseDir: baseDir,
     routes: routes,
     middleware: [
-      proxyMiddleware('/api', { target: 'http://192.168.3.162:3000' })
+      proxyMiddleware('/api', { target: 'http://localhost:3000' })
     ]
   };
 
@@ -53,7 +53,7 @@ browserSync.use(browserSyncSpa({
 }));
 
 gulp.task('rails', function() {
-  exec("cd .. && rails s -b 192.168.3.162");
+  exec("cd .. && rails s -b localhost");
 });
 
 gulp.task('serve', ['watch'], function () {
