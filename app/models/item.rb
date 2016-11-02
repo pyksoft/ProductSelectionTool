@@ -4,7 +4,7 @@ class Item
 
   field :item_no, type: String
   field :description, type: String
-  field :reactions, type: Integer
+  field :reactions, type: String
 
   belongs_to :result, class_name: 'Result', inverse_of: :items, optional: true
   def id
